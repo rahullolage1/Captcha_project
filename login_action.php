@@ -9,7 +9,9 @@ if (isset($_POST['submit'])) {
     $captcha = $_POST["captcha"];
 
     if (empty($captcha)) {
-        echo "Please enter the captcha";
+        $_SESSION['empty_captcha'] = 'Please enter the captcha';
+        header('location:login.php');
+        die();
 
     } elseif ($_SESSION[$_COOKIE['PHPSESSID']] == $captcha) {
 
@@ -23,16 +25,22 @@ if (isset($_POST['submit'])) {
             $db_pass = $fetch_data['password'];
             $verify_password = password_verify($password, $db_pass);
             if ($verify_password) {
-                header('Location:dashboard.php');
                 unset($_SESSION[$_COOKIE['PHPSESSID']]);
-
+                header('Location:dashboard.php');
+                die();
             } else {
-                echo "Incorret Password";
+                $_SESSION['incorrect_pass'] = "Incorret Password";
+                header('location:login.php');
+                die();
             }
         } else {
-            echo "Invalid Email ID";
+            $_SESSION['incorrect_email'] = "Invalid Email ID";
+            header('location:login.php');
+            die();
         }
     } else {
-        echo "Captcha is invalid.";
+        $_SESSION['invalid_captcha'] = "Captcha is invalid.";
+        header('location:login.php');
+        die();
     }
 }

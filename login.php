@@ -30,11 +30,23 @@ session_start();
           <label>Email</label>
           <input type="text" name="email" class="form-control" />
         </div>
+            <?php if (isset($_SESSION['incorrect_email'])) {?>
+            <div class="form-group">
+            <small class="text-danger"><?php echo $_SESSION['incorrect_email'];unset($_SESSION['incorrect_email']); ?>
+            </small>
+            </div>
+            <?php }?>
         <br />
         <div class="form-group">
           <label>Password</label>
           <input type="password" name="password" class="form-control" />
         </div>
+            <?php if (isset($_SESSION['incorrect_pass'])) {?>
+            <div class="form-group">
+            <small class="text-danger"><?php echo $_SESSION['incorrect_pass'];unset($_SESSION['incorrect_pass']); ?>
+            </small>
+            </div>
+            <?php }?>
         <br />
           <div class="row">
             <div class="form-group col-6">
@@ -46,6 +58,18 @@ session_start();
             <img src="captcha.php" alt="PHP Captcha">
             </div>
           </div>
+          <?php if (isset($_SESSION['empty_captcha'])) {?>
+            <div class="form-group">
+            <small class="text-danger"><?php echo $_SESSION['empty_captcha'];unset($_SESSION['empty_captcha']); ?>
+            </small>
+            </div>
+            <?php }?>
+            <?php if (isset($_SESSION['invalid_captcha'])) {?>
+            <div class="form-group">
+            <small class="text-danger"><?php echo $_SESSION['invalid_captcha'];unset($_SESSION['invalid_captcha']); ?>
+            </small>
+            </div>
+            <?php }?>
         <br />
         <button class="btn btn-primary" name="submit">Submit</button>
         <br />

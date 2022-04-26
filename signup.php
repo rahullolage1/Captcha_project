@@ -23,6 +23,11 @@ session_start();
       <h2 class="text-primary text-center">Registration Page</h2>
       <hr />
       <form method="post" action="signup_action.php">
+        <?php if (isset($_SESSION['status_err'])) {?>
+        <div class="form-group alert alert-danger">
+        <?php echo $_SESSION['status_err'];unset($_SESSION['status_err']); ?>
+        </div>
+        <?php }?>
         <div class="form-group">
           <label>Name</label>
           <input type="text" name="name" class="form-control" placeholder="Enter Full Name" required />

@@ -22,21 +22,27 @@ if (isset($_POST['submit'])) {
     if ($emailcount > 0) {
         $_SESSION['email_err'] = 'Email Already Exists';
         header('location:signup.php');
+        die();
 
     } else {
         if ($password === $cpassword) {
             $insertdata = "insert into user (name,email,password) values('$name','$email','$pass')";
             $insertquery = mysqli_query($conn, $insertdata);
-            header('location:login.php');
-
             if ($insertquery) {
                 $_SESSION['status'] = 'Registration Successful';
                 header('location:login.php');
+                die();
+            } else {
+                $_SESSION['status_err'] = 'Something went wrong';
+                header('location:signup.php');
+                die();
 
             }
         } else {
             $_SESSION['pass_err'] = 'Confirm Password are not match with password';
             header('location:signup.php');
+            die();
+
         }
     }
 
